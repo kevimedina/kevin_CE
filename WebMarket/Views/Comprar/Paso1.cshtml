@@ -1,0 +1,169 @@
+﻿
+@{
+    Layout = null;
+}
+
+@model WebMarket.Models.Cliente
+<!DOCTYPE html>
+
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Webmarket HTML Template - Checkout Step 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="ProteusThemes" />
+
+    <!-- Twitter Bootstrap -->
+    <link href="~/Resources/css/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Resources/css/css/responsive.css" rel="stylesheet" />
+    <link href="~/Resources/css/main.css" rel="stylesheet" />
+
+    <!-- js -->
+    <script src="~/Resources/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="~/Resources/js/move-top.js"></script>
+    <script type="text/javascript" src="~/Resources/js/easing.js"></script>
+
+    <!-- Modernizr -->
+    <script src="~/Resources/js/modernizr.custom.56918.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body class="checkout-page">
+
+
+    <div class="container">
+        <div class="row">
+
+            <!--  ==========  -->
+            <!--  = Main content =  -->
+            <!--  ==========  -->
+            <section class="span12">
+
+                <div class="checkout-container">
+                    <div class="row">
+                        <div class="span10 offset1">
+
+                            <!--  ==========  -->
+                            <!--  = Header =  -->
+                            <!--  ==========  -->
+                            <header>
+                                <div class="row">
+                                    <div class="span2">
+                                        <a href="index.html"><img src="~/Resources/images/logo-bw.png" alt="Webmarket Logo" width="48" height="48" /></a>
+                                    </div>
+                                    <div class="span6">
+                                        <div class="center-align">
+                                            <h1><span class="light">Review</span> Shopping Cart</h1>
+                                        </div>
+                                    </div>
+                                    <div class="span2">
+                                        <div class="right-align">
+                                            <img src="~/Resources/images/buttons/security.jpg" alt="Security Sign" width="92" height="65" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </header>
+
+                            <!--  ==========  -->
+                            <!--  = Steps =  -->
+                            <!--  ==========  -->
+                            <div class="checkout-steps">
+                                <div class="clearfix">
+                                    <div class="step active">
+                                        <div class="step-badge">1</div>
+                                        Shopping Cart
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-badge">3</div>
+                                        Shipping Address
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-badge">2</div>
+                                        Payment Method
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-badge">4</div>
+                                        Confirm &amp; Pay
+                                    </div>
+                                </div>
+                            </div> <!-- /steps -->
+                            <!--  ==========  -->
+                            <!--  = Selected Items =  -->
+                            <!--  ==========  -->
+                            <table class="table table-items">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Item</th>
+                                        <th><div class="align-center">Quantity</div></th>
+                                        <th><div class="align-right">Price</div></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="itemcarrito"></tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="stronger">Total:</td>
+                                    <td class="stronger"><div id="totalCompra" class="size-16 align-right">0.00</div></td>
+                                </tr>
+                            </table>
+                            <hr />
+
+                            <p class="right-align">
+                                In the next step you will choose your shipping address &nbsp; &nbsp;
+                                <a href='@Url.Action("Paso2","Comprar")' class="btn btn-primary higher bold">Continuar</a>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </section> <!-- /main content -->
+
+        </div>
+    </div> <!-- /container -->
+    <!--  ==========  -->
+    <!--  = JavaScript =  -->
+    <!--  ==========  -->
+    <!--  = FB =  -->
+
+    <div id="fb-root"></div>
+
+
+    <script>
+        $(function () {
+            var carrito = localStorage.getItem("carrito");
+            var productos = [];
+            if (carrito != null) {
+                productos = JSON.parse(carrito);
+                CargarProductos(productos);
+            }
+        });
+        function CargarProductos(productos) {
+            var html = '';
+            var total = 0;
+
+            $.each(productos, function () {
+                total += this.Precio * this.Cantidad
+                html += '<tr>' +
+                '            <td class="image"><img src="/ImgProductos/' + this.Imagen + '" alt="" width="124" height="124" /></td>' +
+                '            <td class="desc">' + this.Denominacion + ' &nbsp; <a title="Remove Item" class="icon-remove-sign" href="#"></a></td>' +
+                '            <td class="qty">' +
+                '                <input type="text" class="tiny-size" value="' + this.Cantidad + '" />' +
+                '           </td>' +
+                '           <td class="price">S/. ' + this.Precio + '</td>' +
+                '          </tr>'
+            });
+            $('#itemcarrito').html(html);
+
+            $("#totalCompra").text('S/.' + total);
+        }
+    </script>
+
+
+</body>
+</html>
+
+

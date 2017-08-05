@@ -1,0 +1,45 @@
+﻿
+<div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+    <div class="tabcontent-grids">
+        <h5>Resultado de busqueda para: @ViewBag.clave</h5>
+        <div id="owl-demo" class="owl-carousel">
+
+
+            @model List<WebMarket.Models.Producto>
+
+            @foreach (var item in Model)
+            {
+
+                var imagen = @item.ProductoImagen.FirstOrDefault();
+                string img = imagen == null ? "no_disponible.png" : imagen.Imagen;
+
+                <div class="item">
+                    <div class="glry-w3agile-grids agileits">
+                        <a href="products.html"><img src="~/ImgProductos/@img" alt="img"></a>
+                        <div class="view-caption agileits-w3layouts">
+                            <h4><a href="products.html">Audio speaker</a></h4>
+                            <p>@item.Descripcion</p>
+                            <h5>@item.Precio</h5>
+                            <form action="#" method="post">
+                                <input type="hidden" name="cmd" value="_cart" />
+                                <input type="hidden" name="add" value="1" />
+                                <input type="hidden" name="w3ls_item" value="Audio speaker" />
+                                <input type="hidden" name="amount" value="@item.Precio" />
+                                <button onclick="AgregarCarrito(@item.ProductoId,'@item.NombreProducto','@img','@item.Precio')"type="submit" class="w3ls-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
+              
+
+                            
+                             </form>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+
+        </div>
+    </div>
+</div>
+
+
+
